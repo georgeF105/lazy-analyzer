@@ -1,0 +1,11 @@
+{
+  "name": "lazy-analyzer",
+  "version": "1.0.0",
+  "description": "analyzer for ng2 lazy loaded route modules",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "George Francis",
+  "license": "ISC"
+}
