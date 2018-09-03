@@ -1,5 +1,4 @@
 const fs = require('fs');
-console.log('starting lazyloadplay');
 const content = fs.readFileSync('lazy-routes.json');
 const jsonContent = JSON.parse(content);
 const commandLineArgs = require('command-line-args');
@@ -10,17 +9,17 @@ const optionDefinitions = [
 
 const options = commandLineArgs(optionDefinitions);
 
-console.log('options', options);
-
 const lazyBundles = jsonContent.routes;
-const BUNDLE_ID = 49;
-const getBundleInfo = bundleId => {
+
+const getMatchingBundles = ids => {
   return lazyBundles.filter(lazyBundle => {
-    return Object.keys(lazyBundle.chunks).some(id => id == bundleId);
-  });
+    return ids.every(id => Object.keys(lazyBundle.chunks).some(chunkId => chunkId == id));
+  })
 };
 
-options.bundleId.forEach(id => {
-  console.log('bundleInfo. for: ', id, getBundleInfo(id)
-    .map(bundle => bundle.module));
+const matchingBundles = getMatchingBundles(options.bundleId);
+
+console.log('matching bundles:');
+matchingBundles.forEach(bundle => {
+  console.log(bundle.module);
 });
